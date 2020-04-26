@@ -20,6 +20,9 @@ import {CookieService} from 'ngx-cookie-service';
 import {OperatorLoginService} from './service/operator-login.service';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {MatSpinner} from '@angular/material/progress-spinner';
+import {ToastrModule} from 'ngx-toastr';
+import {LoginRequireGuard} from './guard/login-require-guard.service';
+import {LoggingInGuard} from './guard/logging-in-guard.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import {MatSpinner} from '@angular/material/progress-spinner';
   ],
   imports: [
     HttpClientModule,
+    ToastrModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -48,6 +52,8 @@ import {MatSpinner} from '@angular/material/progress-spinner';
   providers: [
     CookieService,
     OperatorLoginService,
+    LoginRequireGuard,
+    LoggingInGuard,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

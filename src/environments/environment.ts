@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  base_url: 'http://local.grantnz.com:8080',
+  base_url: 'http://local.grantnz.com',
 };
 
 /*

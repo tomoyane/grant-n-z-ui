@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {CookieService} from 'ngx-cookie-service';
 import {environment} from '../../environments/environment';
 import {LoginRequest} from '../model/login-request';
-import {Logger} from '../common/logger';
+import {LocalStorageService} from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,22 +17,26 @@ export class OperatorLoginService {
   /**
    * Constructor.
    *
-   * @param cookieService CookieService
+   * @param localStorageService LocalStorageService
    * @param http HttpClient
    */
-  constructor(private cookieService: CookieService,
+  constructor(private localStorageService: LocalStorageService,
               private http: HttpClient) {
   }
 
-  public async login(loginRequest: LoginRequest) {
-    return await this.http.post(environment.base_url + '/api/v1/token', loginRequest, this.options)
+  public async login(loginRequest: LoginRequest): Promise<any> {
+    return await this.http.post(environment.base_url + '/api/v1/token?type=operator', loginRequest, this.options)
+      .pipe()
       .toPromise()
       .then(result => {
-        Logger.debug('Then response.', result);
-        // this.cookieService.set(Const.AUTH_COOKIE, result['token']);
+        this.localStorageService.setAuthCookie(JSON.parse(JSON.stringify(result)).token);
       })
       .catch(error => {
-        Logger.debug('Failed to operator login.', error);
+        console.log('Failed to operator login.', error);
       });
+  }
+
+  public getAuthCookie(): string {
+    return this.localStorageService.getAuthCookie();
   }
 }

@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~ngx-toastr/toastr';
+
 html, body {
   height: 100%;
   color: white
@@ -22,6 +24,14 @@ ul, li {
   color: white;
 }
 
+.caution {
+  color: #FF0000;
+}
+
 .icon-color {
   color: white;
+}
+
+.toast-container {
+  margin-top: 80px !important;
 }

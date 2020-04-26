@@ -7,7 +7,7 @@
       <div class="input-container">
         <mat-form-field>
           <div class="caution" *ngIf="email.errors">
-            <div [hidden]="!email.errors.pattern" class="error-txt">
+            <div [hidden]="!email.errors.pattern">
               ※ Invalid email format
             </div>
           </div>
@@ -23,7 +23,7 @@
 
         <mat-form-field>
           <div class="caution" *ngIf="password.errors">
-            <div [hidden]="!password.errors.minlength" class="error-txt">
+            <div [hidden]="!password.errors.minlength">
               ※ Password length min is 8
             </div>
           </div>
@@ -37,6 +37,9 @@
                  required>
         </mat-form-field>
 
+        <p class="caution" *ngIf="loginError != ''">
+          {{loginError}}
+        </p>
         <button mat-raised-button type="submit" class="login-btn" [disabled]="loginForm.invalid">Login</button>
       </div>
     </form>
