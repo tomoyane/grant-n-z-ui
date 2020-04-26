@@ -1,0 +1,38 @@
+.mat-toolbar {
+  position: relative;
+  z-index: 3;
+  background: #555555;
+}
+
+.toolbar-title {
+  font-size: 18px;
+  margin-left: 8px;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  text-align: -webkit-center;
+  background: #333333;
+  color: #ffffff;
+}
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidenav {
+  padding: 20px;
+  width: 15%;
+  height: 100%;
+  background: #222222;
+}
+
+.content-body {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+}
