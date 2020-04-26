@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "grant-n-z-ui": {
+    "grant-n-z-console": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/grant-n-z-ui",
+            "outputPath": "dist/grant-n-z-console",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "grant-n-z-ui:build"
+            "browserTarget": "grant-n-z-console:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "grant-n-z-ui:build:production"
+              "browserTarget": "grant-n-z-console:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "grant-n-z-ui:build"
+            "browserTarget": "grant-n-z-console:build"
           }
         },
         "test": {
@@ -110,7 +110,7 @@
         }
       }
     },
-    "grant-n-z-ui-e2e": {
+    "grant-n-z-console-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -119,11 +119,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "grant-n-z-ui:serve"
+            "devServerTarget": "grant-n-z-console:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "grant-n-z-ui:serve:production"
+              "devServerTarget": "grant-n-z-console:serve:production"
             }
           }
         },
@@ -139,7 +139,7 @@
       }
     }
   },
-  "defaultProject": "grant-n-z-ui",
+  "defaultProject": "grant-n-z-console",
   "cli": {
     "analytics": "69d4ab87-5508-488c-9bfc-0c3f36d4162d"
   }

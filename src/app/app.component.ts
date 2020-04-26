@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'grant-n-z-ui';
+  title = 'grant-n-z-console';
 }
