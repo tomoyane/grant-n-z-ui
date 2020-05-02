@@ -1,4 +1,6 @@
 export const environment = {
+  name: 'GrantNZ Console',
+  hostname: 'localhost',
   production: true,
-  base_url: 'http://local.grantnz.com',
+  api_base_url: 'http://local.grantnz.com',
 };

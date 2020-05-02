@@ -1,12 +1,18 @@
 .mat-toolbar {
-  position: relative;
-  z-index: 3;
+  position: fixed;
+  z-index: 100;
   background: #555555;
 }
 
 .toolbar-title {
+  width: 100%;
   font-size: 18px;
   margin-left: 8px;
+}
+
+.toolbar-user {
+  text-align: right;
+  font-size: 16px;
 }
 
 .container {
@@ -34,5 +40,7 @@
 .content-body {
   width: 100%;
   padding: 20px;
-  text-align: center;
+  text-align: -webkit-center;
+  position: absolute;
+  top: 64px;
 }

@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  name: 'GrantNZ Console',
+  hostname: 'localhost',
   production: false,
-  base_url: 'http://local.grantnz.com',
+  api_base_url: 'http://local.grantnz.com',
 };
 
 /*

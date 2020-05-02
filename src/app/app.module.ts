@@ -17,12 +17,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
-import {OperatorLoginService} from './service/operator-login.service';
+import {AuthService} from './service/auth.service';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {ToastrModule} from 'ngx-toastr';
 import {LoginRequireGuard} from './guard/login-require-guard.service';
 import {LoggingInGuard} from './guard/logging-in-guard.service';
+import {ServiceService} from './service/service.service';
+import {MatTableModule} from '@angular/material/table';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -46,12 +49,16 @@ import {LoggingInGuard} from './guard/logging-in-guard.service';
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatSelectModule,
+    MatTableModule,
+    MatMenuModule,
     FormsModule,
     OverlayModule,
   ],
   providers: [
     CookieService,
-    OperatorLoginService,
+    AuthService,
+    ServiceService,
     LoginRequireGuard,
     LoggingInGuard,
   ],

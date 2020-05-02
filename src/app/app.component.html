@@ -1,7 +1,12 @@
 <mat-toolbar class="mat-toolbar">
   <mat-toolbar-row>
     <mat-icon aria-label="reorder" (click)="drawer.toggle()" class="icon-color">reorder</mat-icon>
-    <span class="toolbar-title">GrantNZ Console</span>
+    <span class="toolbar-title">{{consoleName}}</span>
+    <span class="toolbar-user" [matMenuTriggerFor]="menu">{{username}}</span>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Service</button>
+      <button mat-menu-item>Logout</button>
+    </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-drawer-container class="container" autosize>
@@ -13,5 +18,7 @@
       <a mat-list-item [routerLink]="['/']">Tree</a>
     </mat-nav-list>
   </mat-drawer>
-  <router-outlet class="content-body"></router-outlet>
+  <div class="content-body">
+    <router-outlet></router-outlet>
+  </div>
 </mat-drawer-container>
