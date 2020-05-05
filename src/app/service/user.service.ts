@@ -8,7 +8,7 @@ import {ApiClientService} from './api-client.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class UserService {
   /**
    * Constructor.
    *
@@ -19,18 +19,18 @@ export class AuthService {
               private apiClientService: ApiClientService) {
   }
 
-  public async login(loginRequest: LoginRequest, apiKey: string): Promise<any> {
+  public async login(loginRequest: LoginRequest, clientSecret: string): Promise<any> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Api-Key': apiKey,
+        'Client-Secret': clientSecret,
       })
     };
 
     return this.apiClientService.post(environment.api_base_url + '/api/v1/token', loginRequest, options)
       .then(result => {
         this.localStorageService.setAuthCookie(JSON.parse(JSON.stringify(result)).token);
-        this.localStorageService.setApiKeyCookie(apiKey);
+        this.localStorageService.setClientSecretCookie(clientSecret);
       });
   }
 
@@ -39,6 +39,14 @@ export class AuthService {
   }
 
   public getApiKeyCookie(): string {
-    return this.localStorageService.getApiKeyCookie();
+    return this.localStorageService.getClientSecretCookie();
+  }
+
+  public getUserName(): string {
+    return this.localStorageService.getUsername();
+  }
+
+  public logout() {
+    this.localStorageService.clearCookie();
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiClientService} from './api-client.service';
 import {environment} from '../../environments/environment';
 import {HttpHeaders} from '@angular/common/http';
@@ -22,7 +22,7 @@ export class GroupService {
   public async get(): Promise<any> {
     const options = {
       headers: new HttpHeaders({
-        'Api-Key': this.localStorageService.getApiKeyCookie(),
+        'Client-Secret': this.localStorageService.getClientSecretCookie(),
         Authorization: 'Bearer ' + this.localStorageService.getAuthCookie(),
       })
     };
@@ -32,7 +32,11 @@ export class GroupService {
         return result;
       })
       .catch(error => {
-        console.log('Failed to get groups of user.', error);
+        console.log('Failed to getAll groups of user.' + error);
       });
+  }
+
+  public updateGroupIdCookie(groupId: number) {
+    this.localStorageService.setGroupIdCookie(groupId);
   }
 }

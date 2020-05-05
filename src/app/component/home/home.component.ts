@@ -39,13 +39,14 @@ export class HomeComponent implements OnInit {
         this.groups = result;
         this.displayedColumns = ['id', 'name', 'uuid', 'selection'];
         this.hideProgress();
-      }).catch(error => {
+      }).catch(_ => {
       this.toastrService.error('Could not read data.');
       this.hideProgress();
     });
   }
 
-  onClickGroup(groupId: number) {
+  onClickGroup(groupId: number): void {
+    this.groupService.updateGroupIdCookie(groupId);
   }
 
   private showProgress(): void {

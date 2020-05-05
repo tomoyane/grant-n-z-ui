@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../service/auth.service';
+import {UserService} from '../../service/user.service';
 import {LoginRequest} from '../../model/login-request';
 import {Overlay} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
@@ -30,13 +30,13 @@ export class LoginComponent implements OnInit {
   /**
    * Constructor.
    *
-   * @param loginService AuthService
+   * @param loginService UserService
    * @param service ServiceService
    * @param router Router
    * @param overlay Overlay
    * @param toastrService ToastrService
    */
-  constructor(private loginService: AuthService,
+  constructor(private loginService: UserService,
               private service: ServiceService,
               private router: Router,
               private overlay: Overlay,
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.get().then(result => {
+    this.service.getAll().then(result => {
       this.services = result;
     });
   }
@@ -52,8 +52,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.loginError = '';
     this.showProgress();
-    const apiKey = this.service.extractApiKey(this.services, this.selectedServiceName);
-    this.loginService.login(this.loginRequest, apiKey)
+    const clientSecret = this.service.extractApiKey(this.services, this.selectedServiceName);
+    console.log(clientSecret);
+    this.loginService.login(this.loginRequest, clientSecret)
       .finally(() => {
         this.hideProgress();
         const token = this.loginService.getAuthCookie();

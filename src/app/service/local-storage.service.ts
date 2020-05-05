@@ -7,7 +7,8 @@ import {environment} from '../../environments/environment';
 })
 export class LocalStorageService {
   static AUTH_COOKIE = 'grantnz_auth';
-  static API_KEY = 'api_key';
+  static CLIENT_SECRET = 'client_secret';
+  static GROUP_ID = 'group_id';
 
   /**
    * Constructor.
@@ -29,12 +30,20 @@ export class LocalStorageService {
     return this.cookieService.get(LocalStorageService.AUTH_COOKIE);
   }
 
-  public setApiKeyCookie(apiKey: string) {
-    this.cookieService.set(LocalStorageService.API_KEY, apiKey, null, '/', environment.hostname, false, 'Strict');
+  public setClientSecretCookie(ClientSecret: string) {
+    this.cookieService.set(LocalStorageService.CLIENT_SECRET, ClientSecret, null, '/', environment.hostname, false, 'Strict');
   }
 
-  public getApiKeyCookie(): string {
-    return this.cookieService.get(LocalStorageService.API_KEY);
+  public getClientSecretCookie(): string {
+    return this.cookieService.get(LocalStorageService.CLIENT_SECRET);
+  }
+
+  public setGroupIdCookie(groupId: number) {
+    this.cookieService.set(LocalStorageService.GROUP_ID, groupId.toString(), null, '/', environment.hostname, false, 'Strict');
+  }
+
+  public getGroupIdCookie(): string {
+    return this.cookieService.get(LocalStorageService.GROUP_ID);
   }
 
   public getUsername(): string {

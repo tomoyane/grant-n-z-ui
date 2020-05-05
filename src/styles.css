@@ -36,3 +36,22 @@ ul, li {
 .toast-container {
   margin-top: 80px !important;
 }
+
+.dialog-list .mat-dialog-container {
+  background: #333333 !important;
+}
+
+.dialog-table {
+  width: 100%;
+  background: #222222;
+}
+
+.dialog-cell-content {
+  color: white;
+  border-bottom: solid 1px #000000 !important;
+}
+
+.dialog-btn-select {
+  background: #555555;
+  color: black !important;
+}

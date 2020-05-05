@@ -4,8 +4,8 @@
     <span class="toolbar-title">{{consoleName}}</span>
     <span class="toolbar-user" [matMenuTriggerFor]="menu">{{username}}</span>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Service</button>
-      <button mat-menu-item>Logout</button>
+      <button mat-menu-item (click)="openServiceDialog()">Service</button>
+      <button mat-menu-item (click)="onLogout()">Logout</button>
     </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>

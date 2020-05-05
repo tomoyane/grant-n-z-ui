@@ -17,7 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
-import {AuthService} from './service/auth.service';
+import {UserService} from './service/user.service';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {ToastrModule} from 'ngx-toastr';
@@ -26,12 +26,15 @@ import {LoggingInGuard} from './guard/logging-in-guard.service';
 import {ServiceService} from './service/service.service';
 import {MatTableModule} from '@angular/material/table';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDialogModule} from '@angular/material/dialog';
+import {DialogListComponent} from './component/dialog/dialog-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    DialogListComponent,
   ],
   imports: [
     HttpClientModule,
@@ -52,12 +55,13 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSelectModule,
     MatTableModule,
     MatMenuModule,
+    MatDialogModule,
     FormsModule,
     OverlayModule,
   ],
   providers: [
     CookieService,
-    AuthService,
+    UserService,
     ServiceService,
     LoginRequireGuard,
     LoggingInGuard,
