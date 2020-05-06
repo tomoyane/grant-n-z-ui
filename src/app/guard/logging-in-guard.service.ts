@@ -25,7 +25,7 @@ export class LoggingInGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     const auth = this.localStorageService.getAuthCookie();
     if (auth != null && auth !== '') {
-      this.router.navigate(['/']);
+      this.router.navigate(['/users']);
       return false;
     } else {
       return true;

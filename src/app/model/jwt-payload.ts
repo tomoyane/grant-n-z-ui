@@ -1,4 +1,4 @@
-export class AuthUser {
+export class JwtPayload {
   exp: string;
   iat: string;
   iss: string;

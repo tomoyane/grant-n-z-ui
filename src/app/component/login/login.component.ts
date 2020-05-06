@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
     this.loginError = '';
     this.showProgress();
     const clientSecret = this.service.extractApiKey(this.services, this.selectedServiceName);
-    console.log(clientSecret);
     this.loginService.login(this.loginRequest, clientSecret)
       .finally(() => {
         this.hideProgress();
@@ -63,7 +62,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.toastrService.success('Success login');
           window.location.reload();
-          this.router.navigate(['/']);
+          this.router.navigate(['/users']);
         }
       });
   }

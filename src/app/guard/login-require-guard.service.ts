@@ -27,7 +27,7 @@ export class LoginRequireGuard implements CanActivate {
     if (auth != null && auth !== '') {
       return true;
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
       return false;
     }
   }

@@ -29,7 +29,9 @@ export class UserService {
 
     return this.apiClientService.post(environment.api_base_url + '/api/v1/token', loginRequest, options)
       .then(result => {
-        this.localStorageService.setAuthCookie(JSON.parse(JSON.stringify(result)).token);
+        const response = JSON.parse(JSON.stringify(result));
+        this.localStorageService.setAuthCookie(response.token);
+        this.localStorageService.setAuthRCookie(response.refresh_token);
         this.localStorageService.setClientSecretCookie(clientSecret);
       });
   }

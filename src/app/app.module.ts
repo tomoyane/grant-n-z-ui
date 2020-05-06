@@ -8,7 +8,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatListModule} from '@angular/material/list';
 import {LoginComponent} from './component/login/login.component';
-import {HomeComponent} from './component/home/home.component';
+import {HomeComponent} from './component/users/home/index.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
@@ -28,6 +28,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DialogListComponent} from './component/dialog/dialog-list.component';
+import { IndexComponent } from './component/groups/index/index.component';
+import { PolicyComponent } from './component/users/policy/policy.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import {DialogListComponent} from './component/dialog/dialog-list.component';
     LoginComponent,
     HomeComponent,
     DialogListComponent,
+    IndexComponent,
+    PolicyComponent,
   ],
   imports: [
     HttpClientModule,

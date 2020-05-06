@@ -6,9 +6,10 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class LocalStorageService {
-  static AUTH_COOKIE = 'grantnz_auth';
-  static CLIENT_SECRET = 'client_secret';
-  static GROUP_ID = 'group_id';
+  static AUTH_COOKIE = 'GRANTNZ_A_ID';
+  static AUTH_R_COOKIE = 'GRANTNZ_A_ID_R';
+  static CLIENT_SECRET = 'CLIENT_SECRET';
+  static GROUP_ID = 'GID';
 
   /**
    * Constructor.
@@ -28,6 +29,14 @@ export class LocalStorageService {
 
   public getAuthCookie(): string {
     return this.cookieService.get(LocalStorageService.AUTH_COOKIE);
+  }
+
+  public setAuthRCookie(token: string) {
+    this.cookieService.set(LocalStorageService.AUTH_R_COOKIE, token, null, '/', environment.hostname, false, 'Strict');
+  }
+
+  public getAuthRCookie(): string {
+    return this.cookieService.get(LocalStorageService.AUTH_R_COOKIE);
   }
 
   public setClientSecretCookie(ClientSecret: string) {

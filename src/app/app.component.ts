@@ -66,19 +66,19 @@ export class AppComponent {
   onLogout() {
     this.userService.logout();
     this.toastrService.success('Success logout');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   public reloadUsername() {
     this.username = this.userService.getUserName();
     if (this.username === null) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     }
   }
 
   public changeSelectedService(clientSecret: string) {
     this.showProgress();
-    this.router.navigate(['/']);
+    this.router.navigate(['/users']);
     this.hideProgress();
   }
 

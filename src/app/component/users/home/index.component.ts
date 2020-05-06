@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupService} from '../../service/group.service';
-import {Group} from '../../model/group';
+import {GroupService} from '../../../service/group.service';
+import {Group} from '../../../model/group';
 import {Overlay} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {MatSpinner} from '@angular/material/progress-spinner';
