@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {LoginRequest} from '../model/login-request';
 import {LocalStorageService} from './local-storage.service';
 import {ApiClientService} from './api-client.service';
 
@@ -19,15 +17,8 @@ export class UserService {
               private apiClientService: ApiClientService) {
   }
 
-  public async login(loginRequest: LoginRequest, clientSecret: string): Promise<any> {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Client-Secret': clientSecret,
-      })
-    };
-
-    return this.apiClientService.post(environment.api_base_url + '/api/v1/token', loginRequest, options)
+  public async auth(body, clientSecret: string): Promise<any> {
+    return this.apiClientService.post(environment.api_base_url + '/api/v1/token', body, ApiClientService.getPostNoAuthHeaders(clientSecret))
       .then(result => {
         const response = JSON.parse(JSON.stringify(result));
         this.localStorageService.setAuthCookie(response.token);

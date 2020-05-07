@@ -9,6 +9,8 @@ import {ToastrService} from 'ngx-toastr';
 import {Overlay} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {MatSpinner} from '@angular/material/progress-spinner';
+import {RefreshTokenRequest} from './model/refresh-token-request';
+import {LocalStorageService} from './service/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +30,7 @@ export class AppComponent {
    *
    * @param userService UserService
    * @param service ServiceService
+   * @param localStorageService LocalStorageService
    * @param toastrService ToastrService
    * @param router Router
    * @param overlay Overlay
@@ -35,6 +38,7 @@ export class AppComponent {
    */
   constructor(private userService: UserService,
               private service: ServiceService,
+              private localStorageService: LocalStorageService,
               private toastrService: ToastrService,
               private router: Router,
               private overlay: Overlay,
@@ -78,8 +82,19 @@ export class AppComponent {
 
   public changeSelectedService(clientSecret: string) {
     this.showProgress();
-    this.router.navigate(['/users']);
-    this.hideProgress();
+    const request = new RefreshTokenRequest();
+    request.grant_type = 'refresh_token';
+    request.refresh_token = this.localStorageService.getAuthRCookie();
+    this.userService.auth(request, clientSecret)
+      .then(_ => {
+        this.router.navigate(['/users']);
+        this.toastrService.success('Update service');
+        this.hideProgress();
+      })
+      .catch(_ => {
+        this.toastrService.error('Failed to update service');
+        this.hideProgress();
+    });
   }
 
   private showProgress(): void {

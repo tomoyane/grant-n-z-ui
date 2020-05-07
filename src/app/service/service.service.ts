@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {Service} from '../model/service';
 import {ApiClientService} from './api-client.service';
-import {HttpHeaders} from '@angular/common/http';
 import {LocalStorageService} from './local-storage.service';
 
 @Injectable({
@@ -31,12 +30,9 @@ export class ServiceService {
   }
 
   public async getOfUser(): Promise<any> {
-    const options = {
-      headers: new HttpHeaders({
-        'Client-Secret': this.localStorageService.getClientSecretCookie(),
-        Authorization: 'Bearer ' + this.localStorageService.getAuthCookie(),
-      })
-    };
+    const options = ApiClientService.getGetAuthHeaders(
+      this.localStorageService.getClientSecretCookie(),
+      this.localStorageService.getAuthCookie());
 
     return await this.apiClientService.get(environment.api_base_url + '/api/v1/users/service', options)
       .then(result => {

@@ -53,14 +53,14 @@ export class LoginComponent implements OnInit {
     this.loginError = '';
     this.showProgress();
     const clientSecret = this.service.extractApiKey(this.services, this.selectedServiceName);
-    this.loginService.login(this.loginRequest, clientSecret)
+    this.loginService.auth(this.loginRequest, clientSecret)
       .finally(() => {
         this.hideProgress();
         const token = this.loginService.getAuthCookie();
         if (token == null || token === '') {
           this.loginError = 'Email or Password is invalid';
         } else {
-          this.toastrService.success('Success login');
+          this.toastrService.success('Success auth');
           window.location.reload();
           this.router.navigate(['/users']);
         }
