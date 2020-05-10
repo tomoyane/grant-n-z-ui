@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -62,11 +62,6 @@ export class LocalStorageService {
     }
 
     const payload = token.split('.')[1];
-    if (payload === null || payload === '') {
-      this.clearCookie();
-      return null;
-    }
-
     const authUser = atob(payload);
     return JSON.parse(authUser).username;
   }

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LocalStorageService} from './local-storage.service';
 import {Router} from '@angular/router';
-import {environment} from '../../environments/environment';
-import {RefreshTokenRequest} from '../model/refresh-token-request';
+import {environment} from '../../../environments/environment';
+import {RefreshTokenRequest} from '../../model/refresh-token-request';
 
 @Injectable({
   providedIn: 'root'
@@ -104,7 +104,7 @@ export class ApiClientService {
           console.log('Failed to GET request.', error);
           return this.errorHandling(error, 'get').then(headers => {
             if (headers === null) {
-              return;
+              return error;
             }
             options = headers;
             return 'retry';
@@ -131,15 +131,16 @@ export class ApiClientService {
       if (JSON.parse(JSON.stringify(error.error)).detail.includes('expired')) {
         return await this.refreshToken(method).then(headers => {
           return headers;
-        }).catch(_ => {
-          this.localStorageService.clearCookie();
-          this.router.navigate(['/']);
+        }).catch(err => {
+          console.log('Error auto refresh.', err);
+          // this.localStorageService.clearCookie();
+          // this.router.navigate(['/']);
           return null;
         });
       }
 
-      this.localStorageService.clearCookie();
-      this.router.navigate(['/']);
+      // this.localStorageService.clearCookie();
+      // this.router.navigate(['/']);
       return null;
     }
   }

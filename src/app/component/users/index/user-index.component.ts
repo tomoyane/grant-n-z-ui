@@ -2,58 +2,54 @@ import {Component, OnInit} from '@angular/core';
 import {GroupService} from '../../../service/group.service';
 import {Group} from '../../../model/group';
 import {Overlay} from '@angular/cdk/overlay';
-import {ComponentPortal} from '@angular/cdk/portal';
-import {MatSpinner} from '@angular/material/progress-spinner';
 import {ToastrService} from 'ngx-toastr';
+import {UserBase} from '../user-base';
+import {Router} from '@angular/router';
+import {AppService} from '../../../service/app.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './user-index.component.html',
+  styleUrls: ['./user-index.component.css']
 })
-export class HomeComponent implements OnInit {
+export class UserIndexComponent extends UserBase implements OnInit {
   public groups: Group[];
   public displayedColumns: string[];
-  public progress = this.overlay.create({
-    hasBackdrop: true,
-    positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically()
-  });
 
   /**
    * Constructor.
    *
+   * @param appService AppService
    * @param groupService GroupService
+   * @param router Router
    * @param overlay Overlay
    * @param toastrService ToastrService
    */
   constructor(private groupService: GroupService,
-              private overlay: Overlay,
-              private toastrService: ToastrService) {
+              private router: Router,
+              public appService: AppService,
+              public overlay: Overlay,
+              public toastrService: ToastrService) {
+    super(appService, overlay, toastrService);
   }
 
   ngOnInit(): void {
     this.showProgress();
 
-    this.groupService.get()
+    this.groupService.getGroupsOfUser()
       .then(result => {
+        console.log(result);
         this.groups = result;
         this.displayedColumns = ['id', 'name', 'uuid', 'selection'];
         this.hideProgress();
       }).catch(_ => {
-      this.toastrService.error('Could not read data.');
+      this.showErrorMsg('Could not read data.');
       this.hideProgress();
     });
   }
 
   onClickGroup(groupId: number): void {
-    this.groupService.updateGroupIdCookie(groupId);
-  }
-
-  private showProgress(): void {
-    this.progress.attach(new ComponentPortal(MatSpinner));
-  }
-
-  private hideProgress(): void {
-    this.progress.detach();
+    this.groupService.updateGid(groupId);
+    this.router.navigate([`/groups/${groupId}`]);
   }
 }

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {Service} from '../model/service';
-import {ApiClientService} from './api-client.service';
-import {LocalStorageService} from './local-storage.service';
+import {ApiClientService} from './infra/api-client.service';
+import {LocalStorageService} from './infra/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class ServiceService {
         return result;
       })
       .catch(error => {
-        console.log('Failed to get all services.', error);
+        console.log('Failed to getGroupsOfUser all services.', error);
       });
   }
 
@@ -39,7 +39,7 @@ export class ServiceService {
         return result;
       })
       .catch(error => {
-        console.log('Failed to get services of user.', error);
+        console.log('Failed to getGroupsOfUser services of user.', error);
       });
   }
 

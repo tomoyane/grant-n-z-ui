@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {environment} from '../environments/environment';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogListComponent} from './component/dialog/dialog-list.component';
 import {UserService} from './service/user.service';
@@ -10,7 +10,8 @@ import {Overlay} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {MatSpinner} from '@angular/material/progress-spinner';
 import {RefreshTokenRequest} from './model/refresh-token-request';
-import {LocalStorageService} from './service/local-storage.service';
+import {GroupService} from './service/group.service';
+import {AppService} from './service/app.service';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +19,10 @@ import {LocalStorageService} from './service/local-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  public static groupId: string;
   public consoleName = environment.name;
   public username: string;
+  public navData = new Map<string, string>();
   public progress = this.overlay.create({
     hasBackdrop: true,
     positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically()
@@ -28,23 +31,27 @@ export class AppComponent {
   /**
    * Constructor.
    *
+   * @param appService AppService
    * @param userService UserService
    * @param service ServiceService
-   * @param localStorageService LocalStorageService
+   * @param groupService GroupService
    * @param toastrService ToastrService
+   * @param activatedRoute ActivatedRoute
    * @param router Router
    * @param overlay Overlay
    * @param dialog MatDialog
    */
-  constructor(private userService: UserService,
+  constructor(private appService: AppService,
+              private userService: UserService,
               private service: ServiceService,
-              private localStorageService: LocalStorageService,
+              private groupService: GroupService,
               private toastrService: ToastrService,
+              private activatedRoute: ActivatedRoute,
               private router: Router,
               private overlay: Overlay,
               public dialog: MatDialog) {
 
-    this.reloadUsername();
+    this.load();
   }
 
   openServiceDialog(): void {
@@ -61,6 +68,9 @@ export class AppComponent {
           panelClass: 'dialog-list'
         });
         dialogRef.afterClosed().subscribe(next => {
+          if (next === null || next === undefined) {
+            return;
+          }
           this.changeSelectedService(next);
         });
       }).catch(_ => {
@@ -73,18 +83,22 @@ export class AppComponent {
     this.router.navigate(['/']);
   }
 
-  public reloadUsername() {
+  private load() {
+    this.appService.subscribeNavMenu().subscribe(next => {
+      this.navData = next;
+    });
+
     this.username = this.userService.getUserName();
     if (this.username === null) {
       this.router.navigate(['/']);
     }
   }
 
-  public changeSelectedService(clientSecret: string) {
+  private changeSelectedService(clientSecret: string) {
     this.showProgress();
     const request = new RefreshTokenRequest();
     request.grant_type = 'refresh_token';
-    request.refresh_token = this.localStorageService.getAuthRCookie();
+    request.refresh_token = this.userService.getAuthRCookie();
     this.userService.auth(request, clientSecret)
       .then(_ => {
         this.router.navigate(['/users']);
@@ -94,7 +108,7 @@ export class AppComponent {
       .catch(_ => {
         this.toastrService.error('Failed to update service');
         this.hideProgress();
-    });
+      });
   }
 
   private showProgress(): void {

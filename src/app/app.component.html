@@ -11,12 +11,14 @@
 </mat-toolbar>
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side">
-    <mat-nav-list>
-      <a mat-list-item [routerLink]="['/']">Top</a>
-      <a mat-list-item [routerLink]="['/']">Form</a>
-      <a mat-list-item [routerLink]="['/']">Table</a>
-      <a mat-list-item [routerLink]="['/']">Tree</a>
+    <mat-nav-list *ngFor="let data of navData | keyvalue">
+      <a mat-list-item [routerLink]="[data.value]">{{data.key}}</a>
     </mat-nav-list>
+    <div>
+      <mat-icon class="sidenav-close" aria-label="reorder" (click)="drawer.toggle()">
+        navigate_next
+      </mat-icon>
+    </div>
   </mat-drawer>
   <div class="content-body">
     <router-outlet></router-outlet>

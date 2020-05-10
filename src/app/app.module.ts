@@ -8,7 +8,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatListModule} from '@angular/material/list';
 import {LoginComponent} from './component/login/login.component';
-import {HomeComponent} from './component/users/home/index.component';
+import {UserIndexComponent} from './component/users/index/user-index.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
@@ -28,17 +28,28 @@ import {MatTableModule} from '@angular/material/table';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DialogListComponent} from './component/dialog/dialog-list.component';
-import { IndexComponent } from './component/groups/index/index.component';
-import { PolicyComponent } from './component/users/policy/policy.component';
+import {GroupIndexComponent} from './component/groups/index/group-index.component';
+import {UserPolicyComponent} from './component/users/policy/user-policy.component';
+import {PolicyService} from './service/policy.service';
+import { GroupUserComponent } from './component/groups/user/group-user.component';
+import { GroupPolicyComponent } from './component/groups/policy/group-policy.component';
+import { GroupRoleComponent } from './component/groups/role/group-role.component';
+import { GroupPermissionComponent } from './component/groups/permission/group-permission.component';
+import {GroupService} from './service/group.service';
+import {AppService} from './service/app.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    HomeComponent,
     DialogListComponent,
-    IndexComponent,
-    PolicyComponent,
+    LoginComponent,
+    UserIndexComponent,
+    UserPolicyComponent,
+    GroupIndexComponent,
+    GroupUserComponent,
+    GroupPolicyComponent,
+    GroupRoleComponent,
+    GroupPermissionComponent,
   ],
   imports: [
     HttpClientModule,
@@ -65,8 +76,11 @@ import { PolicyComponent } from './component/users/policy/policy.component';
   ],
   providers: [
     CookieService,
+    AppService,
     UserService,
     ServiceService,
+    PolicyService,
+    GroupService,
     LoginRequireGuard,
     LoggingInGuard,
   ],

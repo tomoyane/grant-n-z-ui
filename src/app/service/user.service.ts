@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {LocalStorageService} from './local-storage.service';
-import {ApiClientService} from './api-client.service';
+import {LocalStorageService} from './infra/local-storage.service';
+import {ApiClientService} from './infra/api-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +31,8 @@ export class UserService {
     return this.localStorageService.getAuthCookie();
   }
 
-  public getApiKeyCookie(): string {
-    return this.localStorageService.getClientSecretCookie();
+  public getAuthRCookie(): string {
+    return this.localStorageService.getAuthRCookie();
   }
 
   public getUserName(): string {
