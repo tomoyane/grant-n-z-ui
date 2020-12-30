@@ -1,7 +1,8 @@
 .mat-toolbar {
   position: fixed;
   z-index: 100;
-  background: #555555;
+  margin-bottom: 4px;
+  background: #ffffff;
 }
 
 .toolbar-title {
@@ -13,6 +14,12 @@
 .toolbar-user {
   text-align: right;
   font-size: 16px;
+  color: #555555;
+}
+
+.toolbar-title-img {
+  width: 130px;
+  margin-top: 8px;
 }
 
 .container {

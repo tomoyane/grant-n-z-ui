@@ -23,7 +23,8 @@ export class ApiClientService {
               private router: Router) {
   }
 
-  public static getGetNoAuthHeaders(clientSecret: string) {
+  public getGetNoAuthHeaders(clientSecret = null) {
+    clientSecret = (clientSecret === null) ? this.localStorageService.getClientSecretCookie() : clientSecret;
     return {
       headers: new HttpHeaders({
         'Client-Secret': clientSecret,
@@ -31,16 +32,19 @@ export class ApiClientService {
     };
   }
 
-  public static getGetAuthHeaders(clientSecret: string, token: string) {
+  public getGetAuthHeaders(clientSecret = null, token = null) {
+    clientSecret = (clientSecret === null) ? this.localStorageService.getClientSecretCookie() : clientSecret;
+    token = (token === null) ? this.localStorageService.getAuthCookie() : token;
     return {
       headers: new HttpHeaders({
-        'Client-Secret': clientSecret,
+        'Client-Secret': (clientSecret === null) ? this.localStorageService.getClientSecretCookie() : clientSecret,
         Authorization: 'Bearer ' + token,
       })
     };
   }
 
-  public static getPostNoAuthHeaders(clientSecret: string) {
+  public getPostNoAuthHeaders(clientSecret = null) {
+    clientSecret = (clientSecret === null) ? this.localStorageService.getClientSecretCookie() : clientSecret;
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -49,7 +53,9 @@ export class ApiClientService {
     };
   }
 
-  public static getPostAuthHeaders(clientSecret: string, token: string) {
+  public getPostAuthHeaders(clientSecret = null, token = null) {
+    clientSecret = (clientSecret === null) ? this.localStorageService.getClientSecretCookie() : clientSecret;
+    token = (token === null) ? this.localStorageService.getAuthCookie() : token;
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -74,6 +80,9 @@ export class ApiClientService {
         .catch(error => {
           console.log('Failed to POST request.', error);
           return this.errorHandling(error, 'post').then(headers => {
+            if (headers === null) {
+              throw new Error(error.toString());
+            }
             options = headers;
             return 'retry';
           });
@@ -84,7 +93,6 @@ export class ApiClientService {
       }
       break;
     }
-
     return response;
   }
 
@@ -104,7 +112,7 @@ export class ApiClientService {
           console.log('Failed to GET request.', error);
           return this.errorHandling(error, 'get').then(headers => {
             if (headers === null) {
-              return error;
+              throw new Error(error.toString());
             }
             options = headers;
             return 'retry';
@@ -116,7 +124,6 @@ export class ApiClientService {
       }
       break;
     }
-
     return response;
   }
 
@@ -128,30 +135,27 @@ export class ApiClientService {
 
   private async errorHandling(error, method): Promise<any> {
     if (error.status === 401) {
-      if (JSON.parse(JSON.stringify(error.error)).detail.includes('expired')) {
+      if (JSON.parse(JSON.stringify(error.error)).message.includes('expired')) {
         return await this.refreshToken(method).then(headers => {
           return headers;
         }).catch(err => {
           console.log('Error auto refresh.', err);
           // this.localStorageService.clearCookie();
           // this.router.navigate(['/']);
-          return null;
         });
       }
 
       // this.localStorageService.clearCookie();
       // this.router.navigate(['/']);
-      return null;
     }
+    return null;
   }
 
   private async refreshToken(method): Promise<any> {
-    const options = ApiClientService.getPostNoAuthHeaders(this.localStorageService.getClientSecretCookie());
-
     const refreshTokenRequest = new RefreshTokenRequest();
     refreshTokenRequest.grant_type = 'refresh_token';
     refreshTokenRequest.refresh_token = this.localStorageService.getAuthRCookie();
-    return await this.http.post(environment.api_base_url + '/api/v1/token', refreshTokenRequest, options)
+    return await this.http.post(environment.api_base_url + '/api/v1/token', refreshTokenRequest, this.getPostNoAuthHeaders())
       .pipe()
       .toPromise()
       .then(result => {
@@ -161,10 +165,12 @@ export class ApiClientService {
         this.localStorageService.setAuthRCookie(body.refresh_token);
 
         if (method === 'get') {
-          return ApiClientService.getGetAuthHeaders(this.localStorageService.getClientSecretCookie(), body.token);
+          return this.getGetAuthHeaders(null, body.token);
         } else if (method === 'post') {
-          return ApiClientService.getPostAuthHeaders(this.localStorageService.getClientSecretCookie(), body.token);
+          return this.getPostAuthHeaders(null, body.token);
         }
-      }).catch(err => { throw err; });
+      }).catch(err => {
+        throw err;
+      });
   }
 }

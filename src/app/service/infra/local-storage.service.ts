@@ -47,8 +47,8 @@ export class LocalStorageService {
     return this.cookieService.get(LocalStorageService.CLIENT_SECRET);
   }
 
-  public setGroupIdCookie(groupId: number) {
-    this.cookieService.set(LocalStorageService.GROUP_ID, groupId.toString(), null, '/', environment.hostname, false, 'Strict');
+  public setGroupIdCookie(groupUuid: string) {
+    this.cookieService.set(LocalStorageService.GROUP_ID, groupUuid, null, '/', environment.hostname, false, 'Strict');
   }
 
   public getGroupIdCookie(): string {

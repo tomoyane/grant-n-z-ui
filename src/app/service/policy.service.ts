@@ -19,11 +19,7 @@ export class PolicyService {
   }
 
   public async getOfUser(): Promise<any> {
-    const options = ApiClientService.getGetAuthHeaders(
-      this.localStorageService.getClientSecretCookie(),
-      this.localStorageService.getAuthCookie());
-
-    return await this.apiClientService.get(environment.api_base_url + '/api/v1/users/policy', options)
+    return await this.apiClientService.get(environment.api_base_url + '/api/v1/users/policy', this.apiClientService.getGetAuthHeaders())
       .then(result => {
         return result;
       })

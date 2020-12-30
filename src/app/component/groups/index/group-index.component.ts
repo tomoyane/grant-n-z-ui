@@ -35,9 +35,8 @@ export class GroupIndexComponent extends GroupBase implements OnInit {
   ngOnInit(): void {
     this.showProgress();
 
-    this.groupService.getGroupById(this.groupId)
+    this.groupService.getGroupById(this.groupUuid)
       .then(result => {
-        console.log(result);
         this.group = result;
         this.hideProgress();
       }).catch(_ => {

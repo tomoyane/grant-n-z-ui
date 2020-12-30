@@ -8,7 +8,7 @@ import {ActivatedRoute} from '@angular/router';
 
 @Injectable()
 export class GroupBase {
-  public groupId: string;
+  public groupUuid: string;
   public progress = this.overlay.create({
     hasBackdrop: true,
     positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically()
@@ -20,8 +20,8 @@ export class GroupBase {
               public toastrService: ToastrService) {
 
     this.activatedRoute.paramMap.subscribe(param => {
-      this.groupId = param.get('group_id');
-      this.updateNavMenu(this.groupId);
+      this.groupUuid = param.get('group_id');
+      this.updateNavMenu(this.groupUuid);
     });
   }
 
