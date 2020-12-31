@@ -31,10 +31,10 @@ import {DialogListComponent} from './component/dialog/dialog-list.component';
 import {GroupIndexComponent} from './component/groups/index/group-index.component';
 import {UserPolicyComponent} from './component/users/policy/user-policy.component';
 import {PolicyService} from './service/policy.service';
-import { GroupUserComponent } from './component/groups/user/group-user.component';
-import { GroupPolicyComponent } from './component/groups/policy/group-policy.component';
-import { GroupRoleComponent } from './component/groups/role/group-role.component';
-import { GroupPermissionComponent } from './component/groups/permission/group-permission.component';
+import {GroupUserComponent} from './component/groups/user/group-user.component';
+import {GroupPolicyComponent} from './component/groups/policy/group-policy.component';
+import {GroupRoleComponent} from './component/groups/role/group-role.component';
+import {GroupPermissionComponent} from './component/groups/permission/group-permission.component';
 import {GroupService} from './service/group.service';
 import {AppService} from './service/app.service';
 
