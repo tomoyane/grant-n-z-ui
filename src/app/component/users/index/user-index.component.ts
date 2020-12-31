@@ -48,8 +48,8 @@ export class UserIndexComponent extends UserBase implements OnInit {
     });
   }
 
-  onClickGroup(groupId: number): void {
-    this.groupService.updateGid(groupId);
-    this.router.navigate([`/groups/${groupId}`]);
+  onClickGroup(groupUuid: string): void {
+    this.groupService.updateGid(groupUuid);
+    this.router.navigate([`/groups/${groupUuid}`]);
   }
 }

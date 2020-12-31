@@ -24,7 +24,8 @@ export class AppService {
       menu.set('Permission', `/groups/${groupId}/permission`);
       menu.set('Role', `/groups/${groupId}/role`);
       menu.set('Policy', `/groups/${groupId}/policy`);
-      menu.set('Users', `/groups/${groupId}/users`);
+      menu.set('User', `/groups/${groupId}/user`);
+      menu.set('Group', `/groups/${groupId}`);
       this.navMenu.next(menu);
     }
   }
