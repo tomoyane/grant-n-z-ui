@@ -1,7 +1,9 @@
 # GrantNZ Role management console
+GrantNZ Role management console.  
+System administrator uses this console.
 
 ## Documentation
 * [Official documentation](https://tomoyane.github.io/grant-n-z-docs)
 
 ## UI screenshot
-<img width="1677" alt="スクリーンショット 2020-12-31 15 49 44" src="https://user-images.githubusercontent.com/9509132/103398457-22ff8400-4b80-11eb-9f4e-03765f2117fd.png">
+<img width="1674" alt="Screen Shot 2021-04-22 at 14 42 28" src="https://user-images.githubusercontent.com/9509132/115661924-3164ec00-a379-11eb-9e46-9baf06554219.png">
